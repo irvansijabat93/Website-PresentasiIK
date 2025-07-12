@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasbor Interaktif: Jurang Diskriminasi, Jalan Moderasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/heroicons/2.1.1/24/outline/heroicons.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #05FBA5; /* Off-white background */
+            color: #1f2937; /* Darker gray for text */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav-button.active, .nav-button:hover {
+            border-bottom-color: #059669; /* Emerald 600 */
+            color: #059669;
+            font-weight: 600;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            border-color: #D1D5DB;
+            background-color: #FFFFFF;
+        }
+        .tab-button.active {
+            border-color: #065f46; /* Emerald 800 */
+            background-color: #065f46;
+            color: #FFFFFF;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-section {
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1622979493244-434316c52949?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .icon-card {
+             background-color: #ffffff;
+             border: 1px solid #e5e7eb;
+             transition: all 0.3s ease;
+        }
+        .icon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center space-x-4">
+                   <img class="block w-auto h-12" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZTbs23oBOwvSI9Xa48Uh6slAEdPS_bCviLA&s" alt="Logo Kementerian Agama">
+                   <span class="font-bold text-xl text-gray-800 hidden sm:block">Kementerian Agama</span>
+                </div>
+                <nav class="hidden md:flex space-x-10">
+                    <a href="#home" class="nav-button text-gray-600">Beranda</a>
+                    <a href="#data" class="nav-button text-gray-600">Paradoks Data</a>
+                    <a href="#problem" class="nav-button text-gray-600">Akar Masalah</a>
+                    <a href="#solution" class="nav-button text-gray-600">Rekomendasi</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section 1: Hero -->
+        <section id="home" class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-32 md:py-40">
+                <p class="text-base font-semibold text-yellow-300 tracking-wide uppercase">Policy Brief Interaktif 2025</p>
+                <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Jurang Diskriminasi, Jalan Moderasi</h1>
+                <p class="mt-6 text-lg leading-8 text-gray-200">Membentengi kerukunan umat di tengah ujian kebangsaan. Sebuah analisis interaktif tentang tantangan dan solusi dalam implementasi moderasi beragama di Indonesia.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: The Data Paradox -->
+        <section id="data" class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Paradoks Data Kerukunan</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Di permukaan, data nasional menunjukkan gambaran kerukunan yang positif. Namun, jika digali lebih dalam, terlihat realitas yang kontras di tingkat mikro.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                    <div class="lg:col-span-1 text-center lg:text-left">
+                        <h3 class="text-2xl font-bold text-gray-900">Potret Nasional</h3>
+                        <p class="mt-2 text-gray-600">Indeks Kerukunan Umat Beragama (KUB) 2024 menunjukkan capaian yang tinggi, mengindikasikan kondisi kerukunan yang relatif baik secara nasional.</p>
+                        <div class="mt-6 bg-white p-6 rounded-xl shadow-lg text-center border">
+                            <p class="text-sm font-medium text-gray-500">Indeks KUB 2024</p>
+                            <p id="kub-score" class="text-6xl font-bold text-emerald-600">0</p>
+                            <p class="text-sm font-medium text-gray-500">Kategori: Baik</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2">
+                        <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg border">
+                            <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 sm:mb-0">Mengungkap Realitas di Lapangan</h3>
+                                <div class="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+                                    <button id="show-tolerance-btn" class="chart-toggle-btn active px-3 py-1.5 text-sm font-medium rounded-md flex-1 text-center">Dimensi Toleransi</button>
+                                    <button id="show-intolerance-btn" class="chart-toggle-btn px-3 py-1.5 text-sm font-medium rounded-md flex-1 text-center">Kasus Intoleransi</button>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4 text-center" id="chart-description">Klik tombol untuk melihat perbandingan antara persepsi toleransi dan data pelanggaran kebebasan beragama.</p>
+                            <div class="chart-container">
+                                <canvas id="toleranceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="mt-16 text-center p-6 bg-yellow-50 border-2 border-yellow-200 rounded-lg">
+                    <p class="text-yellow-800"><span class="font-bold">Kesimpulan Kunci:</span> Kesenjangan antara persepsi harmoni di tingkat makro (Indeks KUB) dan realitas pelanggaran di tingkat mikro (data SETARA Institute) menunjukkan bahwa program moderasi belum merata dan optimal dampaknya.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: The Problem -->
+        <section id="problem" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Mengapa Terjadi Kesenjangan?</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Efektivitas program moderasi beragama terhambat oleh beberapa masalah fundamental dalam sistem pengawasan dan implementasi.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="icon-card p-8 rounded-xl text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-emerald-100 mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-emerald-700">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" transform="rotate(90 12 12)"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Pengawasan Terfragmentasi</h3>
+                        <p class="text-gray-600">Upaya pengawasan sering berjalan sendiri-sendiri antar lembaga, tanpa koordinasi yang kuat, menciptakan tumpang tindih dan celah.</p>
+                    </div>
+                    <div class="icon-card p-8 rounded-xl text-center">
+                         <div class="flex items-center justify-center h-16 w-16 rounded-full bg-emerald-100 mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-emerald-700">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Kurang Responsif & Birokratis</h3>
+                        <p class="text-gray-600">Prosedur yang berbelit dan lambatnya respons terhadap isu-isu lokal membuat penanganan kasus intoleransi seringkali terlambat.</p>
+                    </div>
+                    <div class="icon-card p-8 rounded-xl text-center">
+                         <div class="flex items-center justify-center h-16 w-16 rounded-full bg-emerald-100 mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-emerald-700">
+                               <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v-7.5m-6-6h12M3 12.75a6 6 0 016-6v-1.5m6 7.5a6 6 0 00-6-6v-1.5" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Pemahaman Konteks Dangkal</h3>
+                        <p class="text-gray-600">Program seringkali bersifat seremonial dan kurang menyentuh akar masalah karena minimnya pemahaman konteks sosial-budaya lokal.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: The Solution -->
+        <section id="solution" class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Jalan Menuju Harmoni: Rekomendasi Kebijakan</h2>
+                     <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Untuk mengatasi tantangan ini, diperlukan pendekatan yang holistik, terintegrasi, dan berbasis data untuk memastikan implementasi moderasi beragama berjalan efektif.</p>
+                </div>
+
+                <div class="w-full max-w-4xl mx-auto">
+                    <div class="flex flex-col sm:flex-row justify-center border-b border-gray-300 mb-8">
+                        <button class="tab-button w-full sm:w-auto text-left sm:text-center px-6 py-4 border-b-2 sm:border-b-0 sm:border-r font-semibold text-gray-700 active" data-tab="tab1">1. Penguatan Regulasi</button>
+                        <button class="tab-button w-full sm:w-auto text-left sm:text-center px-6 py-4 border-b-2 sm:border-b-0 sm:border-r font-semibold text-gray-700" data-tab="tab2">2. Kolaborasi Lintas Sektor</button>
+                        <button class="tab-button w-full sm:w-auto text-left sm:text-center px-6 py-4 font-semibold text-gray-700" data-tab="tab3">3. Standardisasi & Digitalisasi</button>
+                    </div>
+
+                    <div id="tab-content" class="bg-white p-8 rounded-xl shadow-lg transition-all duration-500 border">
+                        <div id="tab1" class="tab-pane active fade-in">
+                            <h3 class="text-2xl font-bold mb-4 text-emerald-700">Penguatan Regulasi & Standardisasi Kualitas</h3>
+                            <p class="text-gray-600">Menciptakan sistem standardisasi kualitas moderasi beragama yang terintegrasi dalam kebijakan pemerintah. Tujuannya adalah untuk memastikan adanya tolok ukur yang jelas dan dapat dievaluasi secara berkelanjutan. Regulasi yang kuat akan menjadi landasan bagi penegakan hukum yang adil dan tidak diskriminatif.</p>
+                        </div>
+                        <div id="tab2" class="tab-pane hidden fade-in">
+                            <h3 class="text-2xl font-bold mb-4 text-emerald-700">Kolaborasi Lintas Sektor yang Sinergis</h3>
+                            <p class="text-gray-600">Membangun kerja sama yang erat dengan berbagai pemangku kepentingan, termasuk Kemendikbud Ristek, Kemendagri, Kejaksaan, dan APH di tingkat daerah. Kolaborasi ini bertujuan untuk menciptakan program bersama yang terpadu dalam menjaga kerukunan di tingkat desa dan kelurahan, mengoptimalkan sumber daya, dan mempercepat respons terhadap potensi konflik.</p>
+                        </div>
+                        <div id="tab3" class="tab-pane hidden fade-in">
+                           <h3 class="text-2xl font-bold mb-4 text-emerald-700">Penyeragaman Pemahaman & Digitalisasi Pengawasan</h3>
+                            <p class="text-gray-600">Menyeragamkan pemahaman konsep moderasi beragama kepada setiap pemangku kepentingan melalui e-learning bersertifikasi. Selain itu, perlu dibentuk Sistem Informasi Manajemen Moderasi Beragama (SIM-MB) yang terintegrasi untuk mempermudah pemantauan, pelaporan, dan pengawasan secara digital, menjadikan proses lebih transparan dan akuntabel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 Analisis Interaktif oleh Kelompok 3 Orientasi CPNS.</p>
+            <p class="text-sm text-gray-400 mt-2">Dibuat berdasarkan Policy Brief "Jurang Diskriminasi, Jalan Moderasi" - Inspektorat Jenderal Kementerian Agama RI.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Chart Data and Configuration ---
+    const toleranceData = {
+        labels: [
+            'Keberatan membangun rumah ibadah',
+            'Keberatan perayaan keagamaan',
+            'Keberatan beribadah sesuai agama',
+            'Keberatan bertetangga beda agama',
+            'Keberatan anak bermain beda agama'
+        ],
+        datasets: [{
+            label: 'Indikator Dimensi Toleransi 2024 (Poin)',
+            data: [71.02, 72.64, 76.22, 78.25, 79.77],
+            backgroundColor: 'rgba(16, 185, 129, 0.7)', // Emerald 500
+            borderColor: 'rgba(6, 95, 70, 1)', // Emerald 800
+            borderWidth: 1,
+            borderRadius: 4,
+        }]
+    };
+
+    const intoleranceData = {
+        labels: ['2023', '2024'],
+        datasets: [{
+            label: 'Peristiwa Pelanggaran KBB',
+            data: [217, 260],
+            backgroundColor: 'rgba(245, 158, 11, 0.2)', // Amber 500 transparent
+            borderColor: 'rgba(217, 119, 6, 1)', // Amber 600
+            borderWidth: 2,
+            fill: true,
+            tension: 0.1,
+            type: 'line'
+        },
+        {
+            label: 'Tindakan Pelanggaran KBB',
+            data: [329, 402],
+            backgroundColor: 'rgba(107, 114, 128, 0.6)', // Gray 500
+            borderColor: 'rgba(55, 65, 81, 1)', // Gray 700
+            borderWidth: 1,
+            borderRadius: 4,
+            type: 'bar'
+        }
+    ]
+    };
+
+    const toleranceConfig = {
+        type: 'bar',
+        data: toleranceData,
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { beginAtZero: true, max: 100, grid: { color: 'rgba(0,0,0,0.05)' } },
+                y: { grid: { display: false } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: (c) => `Poin: ${c.raw}` } }
+            }
+        }
+    };
+
+    const intoleranceConfig = {
+        type: 'bar',
+        data: intoleranceData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+                x: { grid: { display: false } }
+            },
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: { mode: 'index', intersect: false }
+            }
+        }
+    };
+
+    // --- Chart Initialization and Toggling ---
+    const ctx = document.getElementById('toleranceChart').getContext('2d');
+    let myChart = new Chart(ctx, toleranceConfig);
+    const chartDescription = document.getElementById('chart-description');
+    const chartToggleButtons = document.querySelectorAll('.chart-toggle-btn');
+    
+    const updateChart = (config, description) => {
+        myChart.destroy();
+        myChart = new Chart(ctx, config);
+        chartDescription.textContent = description;
+    };
+
+    document.getElementById('show-tolerance-btn').addEventListener('click', (e) => {
+        chartToggleButtons.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        updateChart(toleranceConfig, 'Data menunjukkan tingkat toleransi masyarakat terhadap berbagai aspek kehidupan beragama. Semakin tinggi skor, semakin tinggi tingkat toleransi.');
+    });
+
+    document.getElementById('show-intolerance-btn').addEventListener('click', (e) => {
+        chartToggleButtons.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        updateChart(intoleranceConfig, 'Data menunjukkan tren jumlah peristiwa dan tindakan pelanggaran Kebebasan Beragama/Berkeyakinan (KBB) yang tercatat oleh SETARA Institute.');
+    });
+
+    // --- KUB Score Animation ---
+    const kubScoreElement = document.getElementById('kub-score');
+    const animateValue = (obj, start, end, duration) => {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            obj.innerHTML = (progress * (end - start) + start).toFixed(2);
+            if (progress < 1) window.requestAnimationFrame(step);
+        };
+        window.requestAnimationFrame(step);
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateValue(kubScoreElement, 0, 76.47, 2000);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    observer.observe(kubScoreElement);
+
+    // --- Tab Functionality ---
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            const tabId = button.getAttribute('data-tab');
+            tabPanes.forEach(pane => {
+                pane.classList.toggle('hidden', pane.id !== tabId);
+                if (pane.id === tabId) {
+                    pane.classList.remove('fade-in');
+                    void pane.offsetWidth;
+                    pane.classList.add('fade-in');
+                }
+            });
+        });
+    });
+    
+    // --- Navigation Active State on Scroll ---
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('header nav a');
+    
+    const activateNavOnScroll = () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 80) { // 80px offset for header height
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    };
+    
+    window.addEventListener('scroll', activateNavOnScroll);
+    
+    // Smooth scrolling for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Initial activation
+    activateNavOnScroll();
+});
+</script>
+</body>
+</html>
